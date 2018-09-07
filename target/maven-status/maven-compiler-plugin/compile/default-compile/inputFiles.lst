@@ -1,3 +1,6 @@
 /Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/Application.java
-/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/DataSet.java
-/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/DataSetController.java
+/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/EntityService.java
+/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/DatabaseService.java
+/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/Entity.java
+/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/MyErrorController.java
+/Users/nate.wilkinson/nate/projects/gov-data-hub/src/main/java/govdatahub/EntityController.java

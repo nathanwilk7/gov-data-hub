@@ -1,3 +1,6 @@
-govdatahub/DataSetController.class
+govdatahub/EntityController.class
 govdatahub/Application.class
-govdatahub/DataSet.class
+govdatahub/DatabaseService.class
+govdatahub/EntityService.class
+govdatahub/Entity.class
+govdatahub/MyErrorController.class
