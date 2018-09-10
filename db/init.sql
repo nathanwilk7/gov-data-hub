@@ -6,9 +6,10 @@ create table entities (
   version integer,
   start_time timestamp,
   end_time timestamp,
-  owner integer references users(id),
-  is_public boolean,
-  unique(name, type, owner)
+--  owner integer references users(id),
+--  is_public boolean,
+  unique(name, type)
+--  unique(name, type, owner)
 );
 
 create table entity_stats (
@@ -27,22 +28,13 @@ create table entity_stats (
 create index on entity_stats(start_time);
 create index on entity_stats(end_time);
 
-create table users (
-  id serial primary key,
-  username varchar(127),
-  password varchar(255),
-  email varchar(255),
-  first_name varchar(127),
-  last_name varchar(127),
-  unique(username)
-);
-
 create table datasets (
   id serial primary key,
   name varchar(255),
-  owner integer references users(id),
-  is_public boolean,
-  unique(name, owner, is_public)
+--  owner integer references users(id),
+--  is_public boolean,
+  unique(name)
+--  unique(name, owner, is_public)
 );
 
 create table dataset_fields (
@@ -52,6 +44,16 @@ create table dataset_fields (
   entity_stat_id integer references entity_stats(id),
   unique(dataset_id, entity_id, entity_stat_id)
 );
+
+--create table users (
+--  id serial primary key,
+--  username varchar(127),
+--  password varchar(255),
+--  email varchar(255),
+--  first_name varchar(127),
+--  last_name varchar(127),
+--  unique(username)
+--);
 
 --create table entity_of (
 --  id serial primary key,
