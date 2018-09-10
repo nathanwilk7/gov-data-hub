@@ -22,6 +22,7 @@ public class EntityService {
         }
         rs.close();
         st.close();
+        conn.close();
         return entity;
     }
 
@@ -35,6 +36,7 @@ public class EntityService {
         }
         rs.close();
         st.close();
+        conn.close();
         return entities;
     }
 
@@ -65,17 +67,26 @@ public class EntityService {
         st.close();
     }
 
-    public List<EntityStat> listEntityStats (long id) throws Exception {
+    public List<EntityStat> listEntityStats (long id, Long[] statsToInclude) throws Exception {
         List<EntityStat> entityStats = new ArrayList<EntityStat>();
         Connection conn = databaseService.getConnection();
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM entity_stats WHERE entity_id = ?");
+        PreparedStatement st;
+        if (statsToInclude.length == 0) {
+            st = conn.prepareStatement("SELECT * FROM entity_stats WHERE entity_id = ?");
+        } else {
+            st = conn.prepareStatement("SELECT * FROM entity_stats WHERE entity_id = ? and id = ANY (?)");
+        }
         st.setLong(1, id);
+        if (statsToInclude.length > 0) {
+            st.setArray(2, conn.createArrayOf("INTEGER", statsToInclude));
+        }
         ResultSet rs = st.executeQuery();
         while (rs.next()) {
             entityStats.add(new EntityStat(rs.getLong("id"), rs.getLong("entity_id"), rs.getString("name"), rs.getDouble("value"), rs.getString("str_value"), rs.getDate("start_time"), rs.getDate("end_time"), rs.getString("src"), rs.getString("description")));
         }
         rs.close();
         st.close();
+        conn.close();
         return entityStats;
     }
 

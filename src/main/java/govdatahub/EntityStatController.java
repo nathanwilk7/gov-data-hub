@@ -23,12 +23,17 @@ public class EntityStatController {
     }
 
     @RequestMapping(value="/entity_stats", method=RequestMethod.GET)
-    public List<EntityStat> listEntityStat () throws Exception {
+    public List<EntityStat> listEntityStats () throws Exception {
         return entityStatService.listEntityStats();
     }
 
     @RequestMapping(value="/entity_stats", method=RequestMethod.POST)
     public void createEntityStat (@RequestBody EntityStat entityStat) throws Exception {
         entityStatService.createEntityStat(entityStat);
+    }
+
+    @RequestMapping(value="/entity_stats_bulk", method=RequestMethod.POST)
+    public void createEntityStats (@RequestBody List<EntityStat> entityStats) throws Exception {
+        entityStatService.createEntityStats(entityStats);
     }
 }

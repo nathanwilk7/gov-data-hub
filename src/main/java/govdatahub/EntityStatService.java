@@ -22,6 +22,7 @@ public class EntityStatService {
         }
         rs.close();
         st.close();
+        conn.close();
         return entityStat;
     }
 
@@ -35,11 +36,25 @@ public class EntityStatService {
         }
         rs.close();
         st.close();
+        conn.close();
         return entityStats;
     }
 
     public void createEntityStat (EntityStat entityStat) throws Exception {
         Connection conn = databaseService.getConnection();
+        this.createEntityStat(entityStat, conn);
+        conn.close();
+    }
+
+    public void createEntityStats (List<EntityStat> entityStats) throws Exception {
+        Connection conn = databaseService.getConnection();
+        for (EntityStat entityStat : entityStats) {
+            this.createEntityStat(entityStat);
+        }
+        conn.close();
+    }
+
+    private void createEntityStat (EntityStat entityStat, Connection conn) throws Exception {
         PreparedStatement st = conn.prepareStatement("INSERT INTO entity_stats (entity_id, name, value, str_value, start_time, end_time, src, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         st.setLong(1, entityStat.getEntityId());
         st.setString(2, entityStat.getName());

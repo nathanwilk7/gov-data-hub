@@ -3,12 +3,7 @@ package govdatahub;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -33,7 +28,8 @@ public class EntityController {
     }
 
     @RequestMapping(value="/entities/{id}/stats", method=RequestMethod.GET)
-    public List<EntityStat> listEntityStats (@PathVariable("id") long id) throws Exception {
-        return entityService.listEntityStats(id);
+    public List<EntityStat> listEntityStats (@PathVariable("id") long id, @RequestParam(value="include_stats", required=false) Long[] statsToInclude) throws Exception {
+        statsToInclude = (statsToInclude == null) ? new Long[]{} : statsToInclude;
+        return entityService.listEntityStats(id, statsToInclude);
     }
 }
