@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,13 +19,6 @@ class Entity extends Component {
     render() {
         const entityStats = this.state.stats.map(s => <TableRow key={s.id}><TableCell>{s.name}</TableCell><TableCell>{s.value}</TableCell></TableRow>);
         return (<div>
-                <AppBar position="static">
-                <Toolbar>
-                <Typography variant="display1" color="inherit" >
-                GovDataHub
-                </Typography>
-                </Toolbar>
-                </AppBar>
                 <Typography variant="title" color="inherit"><p>{this.state.name}</p></Typography>
                 <Typography variant="title" color="inherit"><p>Type: {this.state.type}</p></Typography>
                 <Typography variant="title" color="inherit" align="center"><p>Stats</p></Typography>
@@ -48,7 +39,7 @@ class Entity extends Component {
     componentDidMount() {
         fetch('http://localhost:8080/entities/' + this.state.id + '/stats')
             .then(resp => resp.json())
-            .then(data => {this.setState({stats: data})});
+            .then(data => {this.setState({stats: data});});
     }
 }
 

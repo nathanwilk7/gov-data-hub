@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,13 +19,6 @@ class EntitiesList extends Component {
     render() {
         const entities = this.state.entities.map(e => <TableRow key={e.id}><TableCell><a href="test" onClick={this.showEntity(e)}>{e.name}</a></TableCell><TableCell>{e.type}</TableCell><TableCell>{e.description}</TableCell></TableRow>);
         return (<div>
-                <AppBar position="static">
-                <Toolbar>
-                <Typography variant="display1" color="inherit" >
-                GovDataHub
-                </Typography>
-                </Toolbar>
-                </AppBar>
                 <Typography variant="title" color="inherit" align="center"><p>Entities</p></Typography>
                 <Table>
                 <TableHead>
@@ -47,13 +38,13 @@ class EntitiesList extends Component {
     componentDidMount() {
         fetch('http://localhost:8080/entities')
             .then(resp => resp.json())
-            .then(data => {this.setState({entities: data})});
+            .then(data => {this.setState({entities: data});});
     }
     showEntity (entity) {
         return (e) => {
             e.preventDefault();
             ReactDOM.render(<Entity entity={entity} />, document.getElementById("app"));
-        }
+        };
     }
 }
 

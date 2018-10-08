@@ -26,6 +26,22 @@ public class EntityService {
         return entity;
     }
 
+    public Entity getEntityByNameAndType (String name, String type) throws Exception {
+        Connection conn = databaseService.getConnection();
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM entities WHERE name = ? AND type = ?");
+        st.setString(1, name);
+        st.setString(2, type);
+        ResultSet rs = st.executeQuery();
+        Entity entity = null;
+        if (rs.next()) {
+            entity = new Entity(rs.getLong("id"), rs.getString("name"), rs.getString("type"), rs.getString("description"), rs.getInt("version"), rs.getDate("start_time"), rs.getDate("end_time"));
+        }
+        rs.close();
+        st.close();
+        conn.close();
+        return entity;
+    }
+
     public List<Entity> listEntities () throws Exception {
         List<Entity> entities = new ArrayList<Entity>();
         Connection conn = databaseService.getConnection();

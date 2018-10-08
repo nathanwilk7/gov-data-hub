@@ -18,8 +18,15 @@ public class EntityController {
     }
 
     @RequestMapping(value="/entities", method=RequestMethod.GET)
-    public List<Entity> listEntities () throws Exception {
-        return entityService.listEntities();
+    public List<Entity> listEntities (@RequestParam(value="name", required=false) String name, @RequestParam(value="type", required=false) String type) throws Exception {
+        if (name != null && type != null) {
+            List<Entity> entities = new ArrayList<Entity>();
+            entities.add(entityService.getEntityByNameAndType(name, type));
+            return entities;
+        } else if (name == null && type == null) {
+            return entityService.listEntities();
+        }
+        throw new Exception("Need name and type");
     }
 
     @RequestMapping(value="/entities", method=RequestMethod.POST)
